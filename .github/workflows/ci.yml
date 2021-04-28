@@ -1,0 +1,44 @@
+---
+name: ci
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install flake8 pytest ansible-core>=2.11
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. --show-source --statistics
+        flake8 . --ignore=E501
+    - name: Test with pytest
+      run: |
+        pytest
+    - name: Generate a arg spec for the test role
+      run: |
+        ./gen_arg_spec.py --required ./test_data/required_vars.yml -o ./test_data/roles/test_role/meta/main.yml
+    - name: Diff against expected
+      run: |
+        diff --color=always ./test_data/roles/test_role/meta/main.yml ./test_data/expected_argspec.yml
+    - name: Run the test playbook
+      run: |
+        ansible-playbook ./test_data/playbook.yml
+      

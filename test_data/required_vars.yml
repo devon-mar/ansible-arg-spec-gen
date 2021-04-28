@@ -1,0 +1,19 @@
+---
+int_var: 123
+str_var: abcd
+bool_var: true
+dict_var:
+  key: value
+dict_var2:
+  number1:
+    abc: def
+    some_int: 123
+  number2:
+    abc: def
+    ghi: jkl
+    this_is_optional: True
+list_of_dicts:
+  - name: abc
+    # This should be optional
+    value: 123
+  - name: abc

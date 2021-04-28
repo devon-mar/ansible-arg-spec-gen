@@ -32,7 +32,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Generate a arg spec for the test role
+    - name: Generate an arg spec for the test role
       run: |
         ./gen_arg_spec.py --required ./test_data/required_vars.yml -o ./test_data/roles/test_role/meta/main.yml
     - name: Diff against expected

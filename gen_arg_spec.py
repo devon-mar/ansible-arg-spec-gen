@@ -27,7 +27,8 @@ def nested_options(vars: List[Dict[str, Any]]):
 
     # Update required
     for k, v in spec.items():
-        v["required"] = is_required[k]
+        if is_required[k] is False:
+            v.pop("required", None)
     return spec
 
 
@@ -35,11 +36,12 @@ def gen_arg_spec(arg_value: Any, required: bool = True) -> Dict:
     """
     Generate a arg spec for a single var.
     """
-    spec = {
-        "type": get_type_str(arg_value),
-        "required": required,
-        "description": ''
-    }
+    spec: Dict[str, Any] = {"type": get_type_str(arg_value)}
+    if required is True:
+        spec["required"] = True
+    # Want description after required
+    spec["description"] = ''
+
     if spec["type"] == "list" and len(arg_value) > 0:
         spec["elements"] = get_type_str(arg_value[0])
         if spec["elements"] == "dict":

@@ -69,5 +69,4 @@ argument_specs:
             description: ''
           value:
             type: int
-            required: false
             description: ''

@@ -7,39 +7,39 @@ from gen_arg_spec import gen_arg_spec
     [
         # int
         ["abc", 123, True, {"type": "int", "required": True, "description": ''}],
-        ["abc", 123, False, {"type": "int", "required": False, "description": '', "default": 123}],
+        ["abc", 123, False, {"type": "int", "description": '', "default": 123}],
         # str
         ["abc", "def", True, {"type": "str", "required": True, "description": ''}],
-        ["abc", "def", False, {"type": "str", "required": False, "description": '', "default": "def"}],
+        ["abc", "def", False, {"type": "str", "description": '', "default": "def"}],
         # bool
         ["abc", True, True, {"type": "bool", "required": True, "description": ''}],
-        ["abc", False, False, {"type": "bool", "required": False, "description": '', "default": False}],
+        ["abc", False, False, {"type": "bool", "description": '', "default": False}],
         # list
         ["abc", [1, 2], True, {"type": "list", "required": True, "description": '', "elements": "int"}],
         [
             "abc", ['d', 'e'], False,
-            {"type": "list", "required": False, "description": '', "elements": "str", "default": ['d', 'e']}
+            {"type": "list", "description": '', "elements": "str", "default": ['d', 'e']}
         ],
         # list of dicts
         [
-            "abc", [{"required": "a"}, {"required": "b", "optional": 123}], True,
+            "abc", [{"required_key": "a"}, {"required_key": "b", "optional_key": 123}], True,
             {
                 "type": "list", "required": True, "description": '', "elements": "dict",
                 "options": {
-                    "required": {"type": "str", "required": True, "description": ""},
-                    "optional": {"type": "int", "required": False, "description": ""}
+                    "required_key": {"type": "str", "required": True, "description": ""},
+                    "optional_key": {"type": "int", "description": ""}
                 }
             }
         ],
         [
-            "abc", [{"required": "a", "optional": True}, {"required": "b"}], False,
+            "abc", [{"required_key": "a", "optional_key": True}, {"required_key": "b"}], False,
             {
-                "type": "list", "required": False, "description": '', "elements": "dict",
+                "type": "list", "description": '', "elements": "dict",
                 "options": {
-                    "required": {"type": "str", "required": True, "description": ""},
-                    "optional": {"type": "bool", "required": False, "description": ""}
+                    "required_key": {"type": "str", "required": True, "description": ""},
+                    "optional_key": {"type": "bool", "description": ""}
                 },
-                "default": [{"required": "a", "optional": True}, {"required": "b"}]
+                "default": [{"required_key": "a", "optional_key": True}, {"required_key": "b"}]
             }
         ],
         # dict
@@ -53,7 +53,7 @@ from gen_arg_spec import gen_arg_spec
         [
             "abc", {"a": "b"}, False,
             {
-                "type": "dict", "required": False, "description": '', "default": {"a": "b"},
+                "type": "dict", "description": '', "default": {"a": "b"},
                 "options": {"a": {"type": "str", "required": True, "description": ""}}
             }
         ],
